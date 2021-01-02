@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: bkgnd
+    uniqueID: 2330956577
+    locked: 0
+  - name: platform
+    uniqueID: 57273843
+    locked: 0
