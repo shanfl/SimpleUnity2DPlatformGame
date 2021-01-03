@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
     public GameObject landfx;
     public GameObject jumpfx;
 
+    [Header("Attack Setting")]
+    public float nextAttack = 0;
+    public GameObject bombPrefeb;
+    public float attackRate = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,8 +59,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGround == true)
         {
             canJump = true;
-      
+        }
 
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            this.Attack();
         }
     }
     void Movement()
@@ -106,5 +114,15 @@ public class PlayerController : MonoBehaviour
     {
         landfx.transform.position = transform.position + new Vector3(0, -0.72f) ;
         landfx.SetActive(true);        
+    }
+
+    public void Attack()
+    {
+        if (Time.time > nextAttack)
+        {
+            GameObject obj = Instantiate(bombPrefeb, transform.position + new Vector3(0,0.6f,0), bombPrefeb.transform.rotation);
+            obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(1.1f, 1.1f), ForceMode2D.Impulse);            
+            nextAttack = Time.time + attackRate;
+        }
     }
 }
