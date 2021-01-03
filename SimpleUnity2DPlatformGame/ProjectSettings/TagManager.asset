@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Env
+  - NPC
+  - Bomb
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: platform
     uniqueID: 57273843
+    locked: 0
+  - name: npc
+    uniqueID: 369926537
     locked: 0
