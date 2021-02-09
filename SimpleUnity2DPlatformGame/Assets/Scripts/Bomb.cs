@@ -51,4 +51,10 @@ public class Bomb : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+
+    public void TurnOff()
+    {
+        anim.Play("bomb_off");
+    }
 }
