@@ -5,15 +5,18 @@ using UnityEditorInternal;
 using UnityEngine;
 
 [Serializable]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IDamageable
 {
     private Rigidbody2D rb;
 
+    private Animator anim;
     
     public float speed =3;
     public float jumpForce = 4;
 
-    
+    [Header("PlayerState")]
+    public float health = 5;
+    public bool isDeath = false;
 
     [Header("Ground check")]
     public Transform groundCheck;
@@ -38,17 +41,30 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDeath)
+        {
+            anim.SetBool("isdead", isDeath);
+            return;
+        }
         //rb.AddForce()
         CheckInput();
+        anim.SetBool("isdead", isDeath);
     }
 
     void FixedUpdate()
     {
+        if (isDeath)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         PhysicsCheck();
         Movement();
         Jump();
@@ -124,5 +140,25 @@ public class PlayerController : MonoBehaviour
             obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(1.1f, 1.1f), ForceMode2D.Impulse);            
             nextAttack = Time.time + attackRate;
         }
+    }
+
+    public void GetHit(float damage)
+    {
+        // 短暂无敌,不接受伤害
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("hit"))
+        {
+            return;
+        }
+        //
+        //
+        health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+            isDeath = true;
+        }
+
+        GetComponent<Animator>().SetTrigger("hit");
+            
     }
 }

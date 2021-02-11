@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4925052544536229316}
   m_Layer: 11
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,6 +159,6 @@ MonoBehaviour:
   offset: {x: 0, y: -0.6, z: 0}
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 3584
+    m_Bits: 15872
   bombForce: 3
   time: 0

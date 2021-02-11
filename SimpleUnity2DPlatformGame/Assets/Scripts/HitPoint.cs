@@ -9,11 +9,12 @@ public class HitPoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Get hurt!!!!!!!!!!!!!!!");
+            other.GetComponent<IDamageable>().GetHit(1);
         }
 
         if (other.CompareTag("Bomb"))
         {
-
+            Debug.Log("bomb get skill-action-hurt");
         }
     }
 }

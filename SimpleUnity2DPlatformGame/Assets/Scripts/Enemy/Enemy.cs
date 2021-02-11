@@ -8,8 +8,12 @@ public class Enemy : MonoBehaviour
     [Header("AttackSetting")]
     public float nextAttack = 0;
     public float rateAttack = 1;
-    public float attackRange, skillRange;
-    
+    public float attackRange, skillRange;  // 攻击距离 普通攻击+技能攻击
+
+
+    [Header("EnmeyState")]
+    public float health = 5;
+    public bool isdeath = false;
     
     [Header("Movement")]
     public float speed = 1;
@@ -24,9 +28,12 @@ public class Enemy : MonoBehaviour
     public AttackState attackState = new AttackState();
     // Start is called before the first frame update
 
+    GameObject alarmSign = null;
     public virtual void Init()
     {
         anim = GetComponent<Animator>();
+        alarmSign = transform.GetChild(0).gameObject;
+
     }
 
     public void Awake()
@@ -43,6 +50,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("isdeath", isdeath);
+
+        if (isdeath)
+            return;
+
         currentState.OnUpdate(this);
         anim.SetInteger("state", animState);
     }
@@ -119,6 +131,18 @@ public class Enemy : MonoBehaviour
     public void OnTriggerExit2D(Collider2D coll)
     {
         attackList.Remove(coll.transform);
+    }
+
+    public void OnTriggerEnter2D(Collider2D coll)
+    {
+        StartCoroutine(OnAlarm());
+    }
+
+    IEnumerator OnAlarm()
+    {
+        alarmSign.SetActive(true);
+        yield return new WaitForSeconds(alarmSign.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        alarmSign.SetActive(false);
     }
 
     public void OnDrawGizmos()
