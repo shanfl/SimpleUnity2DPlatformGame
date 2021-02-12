@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
 
     [Header("EnmeyState")]
-    public float health = 5;
+    public int health = 5;
     public bool isdeath = false;
     
     [Header("Movement")]
@@ -149,5 +149,7 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.DrawWireCube(new Vector3(0, 0, 0), new Vector3(1, 2, 1));
     }
+    
+ 
 
 }

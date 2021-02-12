@@ -23,7 +23,7 @@ public class Cucumber : Enemy,IDamageable
         }
     }
 
-    public void GetHit(float damage)
+    public void GetHit(int damage)
     {
         
         health -= damage;

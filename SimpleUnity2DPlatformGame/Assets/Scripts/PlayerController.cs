@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour,IDamageable
     public float jumpForce = 4;
 
     [Header("PlayerState")]
-    public float health = 5;
+    public int health = 5;
     public bool isDeath = false;
 
     [Header("Ground check")]
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         }
     }
 
-    public void GetHit(float damage)
+    public void GetHit(int damage)
     {
         // 短暂无敌,不接受伤害
         if (anim.GetCurrentAnimatorStateInfo(1).IsName("hit"))
@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         }
 
         GetComponent<Animator>().SetTrigger("hit");
-            
+
+        UIManager.instance.UpdateHealth(health);
     }
 }
