@@ -26,14 +26,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         isGameOver = player.isDeath;
+        UIManager.instance.GameOverUI(isGameOver);
     }
 
-    bool IsGameOver()
+    public bool IsGameOver()
     {
         return isGameOver;
     }
 
-    void RestartScene()
+    public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }    
