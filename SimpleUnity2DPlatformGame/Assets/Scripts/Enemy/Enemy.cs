@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         alarmSign = transform.GetChild(0).gameObject;
 
+        GameManager.instance.IsEnemy(this);
+
     }
 
     public void Awake()
@@ -53,7 +55,10 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isdeath", isdeath);
 
         if (isdeath)
+        {
+            GameManager.instance.EnemyDead(this);
             return;
+        }           
 
         currentState.OnUpdate(this);
         anim.SetInteger("state", animState);
